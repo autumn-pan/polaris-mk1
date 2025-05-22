@@ -1,6 +1,7 @@
 #include <Arduino.h>
 
-void setup() {
+void setup() 
+{
   Serial.begin(115200);
   Serial.println("Hello, World!");
 }
