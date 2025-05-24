@@ -1,5 +1,10 @@
 #ifndef SENSORS_H
 #define SENSORS_H
+
+// Change this to the precise sea level pressure for your location
+#define SEA_LEVEL_PRESSURE 1013.25 // hPa
+
+
 #include <BMI088.h>
 #include <Adafruit_BMP3XX.h>
 #include <Wire.h>
@@ -18,11 +23,13 @@ class SensorStack
         float getGyroY();
         float getGyroZ();
 
+        float getPressure();
+        float getAltitude(float seaLevel);
+
     private:
         Bmi088Accel accel;
         Bmi088Gyro gyro;
         Adafruit_BMP3XX bmp;
-        float accelX, accelY, accelZ;
-        float gyroX, gyroY, gyroZ;
+
     };
 #endif
