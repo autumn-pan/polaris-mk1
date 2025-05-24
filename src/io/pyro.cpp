@@ -40,3 +40,15 @@ bool PyroChannel::update()
     }
     return false;
 }
+
+void PyroChannel::reset()
+{
+    if (active)
+    {
+        Serial.println("Cannot reset when pyro channel is active.");
+        return;
+    }
+
+    fired = false;
+    return;
+}

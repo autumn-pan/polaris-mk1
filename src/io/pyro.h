@@ -20,5 +20,5 @@ class PyroChannel
         unsigned int duration;
         unsigned long fireTime;
         bool fired;
-        bool isActive;
+        bool active;
 };
