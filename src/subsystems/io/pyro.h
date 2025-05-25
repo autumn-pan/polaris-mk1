@@ -1,3 +1,6 @@
+#ifndef PYRO_H
+#define PYRO_H
+
 // Pyrotechnic Channels
 enum PYRO_PINS
 {
@@ -22,3 +25,5 @@ class PyroChannel
         bool fired;
         bool active;
 };
+
+#endif
