@@ -31,5 +31,10 @@ class SensorStack
         Bmi088Gyro gyro;
         Adafruit_BMP3XX bmp;
 
+        // Stored sensor data
+        float accelX, accelY, accelZ;
+        float gyroX, gyroY, gyroZ;
+        float pressure, altitude;
+        
     };
 #endif
