@@ -1,0 +1,35 @@
+#include "timeTracker.h"
+#include <Arduino.h>
+
+TimeTracker::TimeTracker()
+{
+    time = 0;
+    running = false;
+}
+
+void TimeTracker::update()
+{
+    time = millis();
+
+    // if the rocket has launched, update the elapsed time
+    if (running)
+    {
+        elapsedTime = time - startTime;
+    }
+}
+
+void TimeTracker::start()
+{
+    startTime = millis();
+    running = true;
+}
+
+unsigned int TimeTracker::getElapsedTime()
+{
+    return elapsedTime;
+}
+
+unsigned int TimeTracker::getTime()
+{
+    return time;
+}

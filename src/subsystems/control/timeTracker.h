@@ -1,0 +1,20 @@
+#ifndef TIME_TRACKER_H
+#define TIME_TRACKER_H
+#include <Arduino.h>
+
+class TimeTracker
+{
+    public:
+        TimeTracker();
+        void update();
+        void start();
+        unsigned int getElapsedTime();
+        unsigned int getTime();
+    private:
+        unsigned int time;
+        unsigned int startTime;
+        unsigned int elapsedTime;
+        bool running;
+};
+
+#endif
