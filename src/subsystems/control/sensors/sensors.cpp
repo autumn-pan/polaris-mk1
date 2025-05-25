@@ -7,10 +7,25 @@ SensorStack::SensorStack() : accel(Wire, 0x18), gyro(Wire, 0x68)
 {
     Wire.begin();
     Wire.setClock(400000);
-    accel.begin();
-    gyro.begin();
+    // Initialize and log the status of the sensors
+    
+    // Accelerometer
+    if(accel.begin())
+        Serial.println("Accelerometer initialized successfully");
+    else
+        Serial.println("Accelermeter initialization failed");
 
-    bmp.begin_I2C(0x76, &Wire);
+    // Gyroscope
+    if (gyro.begin())
+        Serial.println("Gyroscope initialized successfully");
+    else
+        Serial.println("Gyroscope initialization failed");
+
+    // Barometer
+    if(bmp.begin_I2C(0x76, &Wire))
+        Serial.println("Barometer initialized successfully");
+    else
+        Serial.println("Barometer initialization failed");
 }
 
 // Getter functions for accelerometer and gyroscope data
