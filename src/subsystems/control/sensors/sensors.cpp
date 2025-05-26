@@ -2,30 +2,34 @@
 #include <BMI088.h>
 #include <Wire.h>
 #include <Arduino.h>
+#include "../../information/logger.h"
 
-SensorStack::SensorStack() : accel(Wire, 0x18), gyro(Wire, 0x68)
+SensorStack::SensorStack(Logger * logger) : accel(Wire, 0x18), gyro(Wire, 0x68)
 {
+    //First, initialize the logger
+    this->logger = logger;
+    // Set up I2C communication
     Wire.begin();
     Wire.setClock(400000);
     // Initialize and log the status of the sensors
     
     // Accelerometer
     if(accel.begin())
-        Serial.println("Accelerometer initialized successfully");
+        logger->log("Accelerometer initialized successfully");
     else
-        Serial.println("Accelermeter initialization failed");
+        logger->log("Accelermeter initialization failed");
 
     // Gyroscope
     if (gyro.begin())
-        Serial.println("Gyroscope initialized successfully");
+        logger->log("Gyroscope initialized successfully");
     else
-        Serial.println("Gyroscope initialization failed");
+        logger->log("Gyroscope initialization failed");
 
     // Barometer
     if(bmp.begin_I2C(0x76, &Wire))
-        Serial.println("Barometer initialized successfully");
+        logger->log("Barometer initialized successfully");
     else
-        Serial.println("Barometer initialization failed");
+        logger->log("Barometer initialization failed");
 }
 
 // Getter functions for accelerometer and gyroscope data
@@ -35,6 +39,7 @@ float SensorStack::getAccelZ() { return accel.getAccelZ_mss(); }
 float SensorStack::getGyroX() { return gyro.getGyroX_rads(); }
 float SensorStack::getGyroY() { return gyro.getGyroY_rads(); }
 float SensorStack::getGyroZ() { return gyro.getGyroZ_rads(); }
+
 // Getter functions for pressure and altitude
 float SensorStack::getPressure() { return bmp.readPressure(); }
 float SensorStack::getAltitude(float seaLevel) { return bmp.readAltitude(seaLevel);} 

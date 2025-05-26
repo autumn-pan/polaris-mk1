@@ -1,6 +1,8 @@
 #ifndef PYRO_H
 #define PYRO_H
 
+#include "../information/logger.h"
+
 // Pyrotechnic Channels
 enum PYRO_PINS
 {
@@ -13,7 +15,7 @@ enum PYRO_PINS
 class PyroChannel
 {
     public:
-        PyroChannel(int pin, unsigned int duration);
+        PyroChannel(int pin, unsigned int duration, Logger * logger);
         void fire();
         void reset();
         bool isFired();
@@ -24,6 +26,7 @@ class PyroChannel
         unsigned long fireTime;
         bool fired;
         bool active;
+        Logger * logger;
 };
 
 #endif
