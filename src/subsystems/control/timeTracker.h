@@ -10,10 +10,13 @@ class TimeTracker
         void start();
         unsigned int getElapsedTime();
         unsigned int getTime();
+        unsigned int getTimeStep();
     private:
         unsigned int time;
         unsigned int startTime;
         unsigned int elapsedTime;
+        unsigned int lastUpdateTime;
+        unsigned int dt;
         bool running;
 };
 
