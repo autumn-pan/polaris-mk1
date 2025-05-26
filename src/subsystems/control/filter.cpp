@@ -55,3 +55,15 @@ void KalmanFilter::update(float measuredAcceleration, float measuredPosition)
     P = (I - K * H) * P;    
 }
 
+float KalmanFilter::getAcceleration()
+{
+    return x(0); // Return estimated acceleration
+}
+float KalmanFilter::getVelocity()
+{
+    return x(1); // Return estimated velocity
+}
+float KalmanFilter::getPosition()
+{
+    return x(2); // Return estimated position
+}
