@@ -15,21 +15,21 @@ SensorStack::SensorStack(Logger * logger) : accel(Wire, 0x18), gyro(Wire, 0x68)
     
     // Accelerometer
     if(accel.begin())
-        logger->log("Accelerometer initialized successfully");
+        logger->log("[SENSOR_ERROR]: Accelerometer initialized successfully");
     else
-        logger->log("Accelermeter initialization failed");
+        logger->log("[SENSOR_ERROR]: Accelermeter initialization failed");
 
     // Gyroscope
     if (gyro.begin())
-        logger->log("Gyroscope initialized successfully");
+        logger->log("[SENSOR_ERROR]: Gyroscope initialized successfully");
     else
-        logger->log("Gyroscope initialization failed");
+        logger->log("[SENSOR_ERROR]: Gyroscope initialization failed");
 
     // Barometer
     if(bmp.begin_I2C(0x76, &Wire))
-        logger->log("Barometer initialized successfully");
+        logger->log("[SENSOR_ERROR]: Barometer initialized successfully");
     else
-        logger->log("Barometer initialization failed");
+        logger->log("[SENSOR_ERROR]: Barometer initialization failed");
 }
 
 // Getter functions for accelerometer and gyroscope data

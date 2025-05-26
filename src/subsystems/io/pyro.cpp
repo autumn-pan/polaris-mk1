@@ -49,7 +49,7 @@ void PyroChannel::reset()
 {
     if (active)
     {
-        logger->log("Cannot reset when pyro channel is active.");
+        logger->log("[PYRO_ERROR]: Cannot reset when pyro channel is active.");
         return;
     }
 

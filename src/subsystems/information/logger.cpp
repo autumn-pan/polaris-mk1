@@ -34,12 +34,15 @@ Logger::Logger(String notes)
     String name = "/logs/log_" + String(logCount) + ".txt";
     dataFile = SD.open(name.c_str(), FILE_WRITE);
 
+    // Check if the file was opened successfully
     if (!dataFile)
     {
         Serial.println("Error opening log file!");
         return;
     }
+    // Log the file creation (if successful)
     Serial.println("Log file created successfully.");
+
 
     // Write the header to the log file
     dataFile.println("POLARIS I FLIGHT LOG" + String(logCount) + "\n");
