@@ -3,9 +3,16 @@
 #include <Arduino.h>
 #include <cmath>
 #include "./sensors/sensors.h"
+#include "./timeTracker.h"
 
-KalmanFilter::KalmanFilter(float processNoise, float measurementNoise)
+KalmanFilter::KalmanFilter(float processNoise, float measurementNoise, TimeTracker* timeTracker)
 {
+    // First, initialize the time tracker
+    this->timeTracker = timeTracker;
+
+    // Then, initialize dt
+    dt = timeTracker->getTimeStep()/1000.0f; // Convert milliseconds to seconds
+
     // Initialize state vector; estimated initial values
     x = Eigen::Vector3f::Zero(); // [acceleration, velocity, position]
     
@@ -23,17 +30,15 @@ KalmanFilter::KalmanFilter(float processNoise, float measurementNoise)
          0, 1, dt,
          0, 0, 1;
 
-    dt = 0.001; // time step in seconds, adjust dynamically.    
-
-
     this->processNoise = processNoise;
     this->measurementNoise = measurementNoise;
 }
 
 void KalmanFilter::update(float measuredAcceleration, float measuredPosition)
 {
-    // TODO: Before anything, update dt based on the timeTracker
-
+    // Before anything, update dt based on the timeTracker
+    dt = timeTracker->getTimeStep() / 1000.0f;
+    
     // Predict the next state...
     xp = F * x; // no control matrix... yet
     P = F * P * F.transpose() + Q; // Update estimate error covariance

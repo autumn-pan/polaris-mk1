@@ -11,6 +11,7 @@ class TimeTracker
         unsigned int getElapsedTime();
         unsigned int getTime();
         unsigned int getTimeStep();
+        
     private:
         unsigned int time;
         unsigned int startTime;
