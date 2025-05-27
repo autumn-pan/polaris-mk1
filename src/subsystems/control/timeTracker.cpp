@@ -3,29 +3,35 @@
 
 TimeTracker::TimeTracker()
 {
-    time = 0;
+    time = millis();
+    lastUpdateTime = 0;
     running = false;
 }
 
 void TimeTracker::update()
 {
     time = millis();
-
+    // If the time has not changed, do nothing
+    if (time == lastUpdateTime)
+    {
+        return;
+    }
+    
+    //update dt
+    dt = time - lastUpdateTime;
+    lastUpdateTime = time;
+        
     // if the rocket has launched, update the elapsed time
     if (running)
     {
         //update time since launch
         elapsedTime = time - startTime;
-        //update dt
-        dt = time - lastUpdateTime;
-        lastUpdateTime = time;
     }
 }
 
 void TimeTracker::start()
 {
     startTime = millis();
-    lastUpdateTime = startTime;
     elapsedTime = 0;
     running = true;
 }
