@@ -9,11 +9,12 @@
 #include <Adafruit_BMP3XX.h>
 #include <Wire.h>
 #include <Arduino.h>
+#include "../../information/logger.h"
 
 class SensorStack
 {
     public:
-        SensorStack();
+        SensorStack(Logger * logger);
 
         void updateSensorData();
         float getAccelX();
@@ -31,6 +32,8 @@ class SensorStack
         Bmi088Gyro gyro;
         Adafruit_BMP3XX bmp;
 
+        // Logger
+        Logger * logger;
         // Stored sensor data
         float accelX, accelY, accelZ;
         float gyroX, gyroY, gyroZ;

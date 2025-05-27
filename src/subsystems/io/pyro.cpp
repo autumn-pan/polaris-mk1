@@ -1,11 +1,15 @@
 #include <Arduino.h>
 #include "pyro.h"
 
-PyroChannel::PyroChannel(int pin, unsigned int duration)
+#include "../information/logger.h"
+
+PyroChannel::PyroChannel(int pin, unsigned int duration, Logger * logger)
 {
     this->pin = pin;
     this->duration = duration;
     this->fired = false;
+    this->logger = logger;
+
     pinMode(pin, OUTPUT);
     digitalWrite(pin, LOW);
 }
@@ -45,7 +49,7 @@ void PyroChannel::reset()
 {
     if (active)
     {
-        Serial.println("Cannot reset when pyro channel is active.");
+        logger->log("[PYRO_ERROR]: Cannot reset when pyro channel is active.");
         return;
     }
 
