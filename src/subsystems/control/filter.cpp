@@ -5,7 +5,7 @@
 #include "./sensors/sensors.h"
 #include "./timeTracker.h"
 
-KalmanFilter::KalmanFilter(float processNoise, float measurementNoise, TimeTracker* timeTracker)
+KalmanFilter::KalmanFilter(float processNoise[], float measurementNoise[], TimeTracker* timeTracker)
 {
     // First, initialize the time tracker
     this->timeTracker = timeTracker;
@@ -18,8 +18,15 @@ KalmanFilter::KalmanFilter(float processNoise, float measurementNoise, TimeTrack
     
     // Initialize covariance matrices
     P = Eigen::Matrix3f::Identity();
-    Q = Eigen::Matrix3f::Identity() * processNoise; // Process noise covariance
-    R = Eigen::Matrix3f::Identity() * measurementNoise; // Measurement noise covariance
+    Q  <<
+        processNoise[0], 0, 0,
+        0, 0, 0,
+        0, 0, processNoise[1]; // Process noise covariance matrix Q
+
+    R <<
+        measurementNoise[0], 0, 0,
+        0, 0, 0,
+        0, 0, measurementNoise[1]; // Measurement noise covariance matrix R
     
     // Initialize Kalman gain and identity matrix
     K = Eigen::Matrix3f::Zero();
@@ -30,8 +37,8 @@ KalmanFilter::KalmanFilter(float processNoise, float measurementNoise, TimeTrack
          0, 1, dt,
          0, 0, 1;
 
-    this->processNoise = processNoise;
-    this->measurementNoise = measurementNoise;
+    processNoise = processNoise;
+    measurementNoise = measurementNoise;
 }
 
 void KalmanFilter::update(float measuredAcceleration, float measuredPosition)
