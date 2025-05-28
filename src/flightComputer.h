@@ -16,7 +16,7 @@ class FlightComputer
         // [0] represents accelerometer noise 
         // [1] represents barometric altimeter noise
         // The kalman filter is the only subsystem that cannot be hardcoded into this library, as variances will vary.
-        FlightComputer(float processNoise [2], float measurementNoise [2]);
+        FlightComputer(float processNoise [2], float measurementNoise [2], float seaLevelPressure);
         void update();
         
     private:
@@ -26,6 +26,8 @@ class FlightComputer
         PyroChannel * pyro1; // Pyro channels to activate pyrotechnic devices
         PyroChannel * pyro2;
         KalmanFilter * filter;
+
+        float seaLevelPressure;
 };
 
 #endif

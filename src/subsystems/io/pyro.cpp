@@ -56,3 +56,8 @@ void PyroChannel::reset()
     fired = false;
     return;
 }
+
+bool PyroChannel::isFiring()
+{
+    return this->active;
+}
