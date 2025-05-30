@@ -20,7 +20,8 @@ class PyroChannel
         void reset();
         bool isFired(); 
         bool update(); // Ensures that the pyro channel is stopped correctly; to be run every cycle
-
+        bool isFiring(); // Returns true if the pyro channel is currently firing
+        
     private:
         int pin;
         unsigned int duration;
