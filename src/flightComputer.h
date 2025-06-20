@@ -16,7 +16,7 @@ class FlightComputer
         // [0] represents accelerometer noise 
         // [1] represents barometric altimeter noise
         // The kalman filter is the only subsystem that cannot be hardcoded into this library, as variances will vary.
-        FlightComputer(float processNoise [2], float measurementNoise [2], float seaLevelPressure);
+        FlightComputer(float processNoise [2], float measurementNoise [2], float seaLevelPressure, float maxProcessNoise, float maxMeasurementNoise);
         void update();
         
     private:
@@ -26,6 +26,14 @@ class FlightComputer
         PyroChannel * pyro1; // Pyro channels to activate pyrotechnic devices
         PyroChannel * pyro2;
         KalmanFilter * filter;
+
+        // These are reasonable estimates for the maximum noise values from the IMUs.
+        // This is useful for noise-proofing important systems such as apogee and launch detection.
+        float maxProcessNoise;
+        float maxMeasurementNoise;
+
+        // 2 *(maxProcessNoise + maxMeasurementNoise)
+        float cumulativeNoiseThreshold; // This is for validating that any measurements are from actual motion rather than sensor noise
 
         float seaLevelPressure;
 };

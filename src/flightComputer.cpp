@@ -4,10 +4,9 @@
 #include "subsystems/control/sensors/sensors.h"
 #include "subsystems/information/logger.h"
 #include "subsystems/io/pyro.h"
-#include "pins.h"
 #include <Arduino.h>
 
-FlightComputer::FlightComputer(float processNoise[2], float measurementNoise[2], float seaLevelPressure)
+FlightComputer::FlightComputer(float processNoise[2], float measurementNoise[2], float seaLevelPressure, float maxProcessNoise, float maxMeasurementNoise)
 {
     // instantiate all flight components
     timeTracker = new TimeTracker();
@@ -22,7 +21,15 @@ FlightComputer::FlightComputer(float processNoise[2], float measurementNoise[2],
     pyro2 = new PyroChannel(13, 1000, logger); // 13 is a placeholder pin value
 
     this->seaLevelPressure = seaLevelPressure;
+
+    // Set up noise maxima
+    this->maxMeasurementNoise = maxMeasurementNoise;
+    this->maxProcessNoise = maxProcessNoise;
+
+    this->cumulativeNoiseThreshold = 2 * (maxMeasurementNoise + maxProcessNoise);
 }
+
+
 
 void FlightComputer::update()
 {
