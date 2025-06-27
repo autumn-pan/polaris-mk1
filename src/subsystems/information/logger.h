@@ -14,6 +14,7 @@ class Logger
     private:
         const int chipSelect = BUILTIN_SDCARD;
         File dataFile;
+        File eventFile;
 };
 
 #endif
