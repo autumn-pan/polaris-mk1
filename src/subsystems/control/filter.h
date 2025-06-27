@@ -19,6 +19,8 @@ class KalmanFilter
         float getVelocity();
         float getPosition();
 
+        std::array<float, 3> getState();
+
     private:
         // State vector: x = [acceleration, velocity, position]
         Eigen::Vector3f x; // State vector

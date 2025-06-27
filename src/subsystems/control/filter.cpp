@@ -81,3 +81,7 @@ float KalmanFilter::getPosition()
 {
     return x(2); // Return estimated position
 }
+std::array<float, 3> KalmanFilter::getState()
+{
+    return {x(0), x(1), x(2)};
+}
