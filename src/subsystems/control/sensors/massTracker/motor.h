@@ -10,6 +10,8 @@ class Motor
         void burn();
         void update();
 
+        void jettison();
+
         // getter functions
         bool isBurning();
         bool burnedOut();
@@ -17,15 +19,21 @@ class Motor
         float getTotalMass();
         float getPropellantMass();
         float getMotorMass();
+
+        bool jettisoned();
     private:
         bool isBurning = false;
         bool burnedOut = false;
+
+        bool jettisoned = false;
 
         float burnTime;
         float burnStartTime;
         float totalMass;
         float propellantMass;
         float motorMass; // mass of motor w/o propellant
+
+        float propellantBurnRate;
 
         TimeTracker timeTracker;
 };

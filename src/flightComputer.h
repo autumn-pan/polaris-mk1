@@ -36,6 +36,12 @@ class FlightComputer
         float cumulativeNoiseThreshold; // This is for validating that any measurements are from actual motion rather than sensor noise
 
         float seaLevelPressure;
+
+        float stateVector[3]; 
+
+        float xyVels[2];
+
+        float mass;
 };
 
 #endif
