@@ -7,18 +7,19 @@ class Motor
 {
     public:
         Motor(float burnTime, float motorMass, float propellantMass, TimeTracker timeTracker);
-        void burn();
-        void update();
+        bool burn();
+        bool update();
 
         void jettison();
 
         // getter functions
-        bool isBurning();
-        bool burnedOut();
+        bool getBurning();
+        bool getBurnedOut();
 
         float getTotalMass();
         float getPropellantMass();
         float getMotorMass();
+        float getBurnTime();
 
         bool jettisoned();
     private:

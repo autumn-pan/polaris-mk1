@@ -10,10 +10,6 @@ KalmanFilter::KalmanFilter(float processNoise[], float measurementNoise[], TimeT
     // First, initialize the time tracker
     this->timeTracker = timeTracker;
 
-    // Then, initialize dt
-    // NOTE: This code is redundant and gets overridden in update() anyways
-    dt = timeTracker->getTimeStep()/1000.0f; // Convert milliseconds to seconds
-
     // Initialize state vector; estimated initial values
     x = Eigen::Vector3f::Zero(); // [acceleration, velocity, position]
     

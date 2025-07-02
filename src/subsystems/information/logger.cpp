@@ -45,7 +45,7 @@ Logger::Logger(String notes) // notes are arbitrary. remove.
 
     // Write event log header
     eventFile.println("Polaris I Flight Event Log " + String(logCount));
-    
+
     // Create a new log file
     String name = "/logs/log_" + String(logCount) + ".txt";
     dataFile = SD.open(name.c_str(), FILE_WRITE);
@@ -67,13 +67,13 @@ Logger::Logger(String notes) // notes are arbitrary. remove.
 void Logger::log(String data)
 {
     // Write data to the SD card
-    if (dataFile)
+    if (eventFile)
     {
-        dataFile.println(data);
+        eventFile.println(data);
     }
     else
     {
-        Serial.println("Error writing to the log file");
+        Serial.println("Error writing to the event log file");
         return;
     }
 

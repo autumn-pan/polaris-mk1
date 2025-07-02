@@ -1,4 +1,4 @@
-#include "Motor.h"
+#include "motor.h"
 
 // constructor for the motor class
 Motor::Motor(float burnTime, float motorMass, float propellantMass, TimeTracker timeTracker)
@@ -48,6 +48,9 @@ void Motor::jettison()
 }
 
 // Getter functions
-
-bool Motor::isBurning() {return isBurning;}
-bool Motor::burnedOut() {return burnedOut;}
+bool Motor::getBurning() {return isBurning;}
+bool Motor::getBurnedOut() {return burnedOut;}
+float Motor::getPropellantMass() {return propellantMass;}
+float Motor::getTotalMass() {return totalMass;}
+float Motor::getMotorMass() {return motorMass;}
+float Motor::getBurnTime() {return burnTime;}
