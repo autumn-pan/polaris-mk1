@@ -16,11 +16,11 @@ FlightComputer::FlightComputer(float processNoise[2], float measurementNoise[2],
     sensors = new SensorStack(logger);
     filter = new KalmanFilter(processNoise, measurementNoise, timeTracker);
     // pyro channels
-
     pyro1 = new PyroChannel(12, 1000, logger); // 12 is a placeholder pin value
     pyro2 = new PyroChannel(13, 1000, logger); // 13 is a placeholder pin value
 
     this->seaLevelPressure = seaLevelPressure;
+  
 
     // Set up noise maxima
     this->maxMeasurementNoise = maxMeasurementNoise;
@@ -28,7 +28,6 @@ FlightComputer::FlightComputer(float processNoise[2], float measurementNoise[2],
 
     this->cumulativeNoiseThreshold = 2 * (maxMeasurementNoise + maxProcessNoise);
 }
-
 
 
 void FlightComputer::update()

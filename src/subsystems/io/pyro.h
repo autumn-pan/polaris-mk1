@@ -21,7 +21,8 @@ class PyroChannel
         bool isFired(); 
         bool isFiring(); // returns whether or not the channel is active
         bool update(); // Ensures that the pyro channel is stopped correctly; to be run every cycle
-
+        bool isFiring(); // Returns true if the pyro channel is currently firing
+        
     private:
         int pin;
         unsigned int duration;
