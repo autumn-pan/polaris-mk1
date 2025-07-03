@@ -3,7 +3,7 @@
 #include <SD.h>
 #include "../control/sensors/sensors.h"
 
-Logger::Logger(String notes)
+Logger::Logger(String notes) // notes are arbitrary. remove.
 {
     //Begin SD card
     if (!SD.begin(chipSelect))
@@ -29,6 +29,22 @@ Logger::Logger(String notes)
     {
         logCount++;
     }
+    // Create a new event log file
+    String eventName = "/logs/eventLogs_" + String(logCount) + ".txt";
+    eventFile = SD.open(eventName.c_str(), FILE_WRITE);
+
+    // Check if the file was opened successfully
+    if (!eventFile)
+    {
+        Serial.println("Error opening event log file!");
+        return;
+    }
+
+    // Log the file creation (if successful)
+    Serial.println("Event Log file created successfully.");
+
+    // Write event log header
+    eventFile.println("Polaris I Flight Event Log " + String(logCount));
 
     // Create a new log file
     String name = "/logs/log_" + String(logCount) + ".txt";
@@ -45,20 +61,19 @@ Logger::Logger(String notes)
 
 
     // Write the header to the log file
-    dataFile.println("POLARIS I FLIGHT LOG" + String(logCount) + "\n");
-    dataFile.println(notes + "\n");
+    dataFile.println("foo, bar, baz"); //replace these with meaningful sensor info
 }
 
 void Logger::log(String data)
 {
     // Write data to the SD card
-    if (dataFile)
+    if (eventFile)
     {
-        dataFile.println(data);
+        eventFile.println(data);
     }
     else
     {
-        Serial.println("Error writing to the log file");
+        Serial.println("Error writing to the event log file");
         return;
     }
 
@@ -71,8 +86,9 @@ void Logger::logSensorData()
     // Log sensor data to the SD card
     if (dataFile)
     { //Change these into meaningful information when other systems are implemented
-        dataFile.print("Foo: ");
-        dataFile.print("Bar");
+        dataFile.print("foo, ");
+        dataFile.print("bar, ");
+        dataFile.print("baz");
     }
     else
     {

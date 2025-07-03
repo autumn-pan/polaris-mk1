@@ -19,6 +19,7 @@ class PyroChannel
         void fire(); // Send a signal out to the pyro channel for the duration
         void reset();
         bool isFired(); 
+        bool isFiring(); // returns whether or not the channel is active
         bool update(); // Ensures that the pyro channel is stopped correctly; to be run every cycle
         bool isFiring(); // Returns true if the pyro channel is currently firing
         

@@ -57,6 +57,7 @@ void PyroChannel::reset()
     return;
 }
 
+
 bool PyroChannel::isFired()
 {
     return fired;

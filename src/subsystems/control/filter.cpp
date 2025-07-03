@@ -7,6 +7,7 @@
 
 KalmanFilter::KalmanFilter(float processNoise[], float measurementNoise[], TimeTracker * timeTracker)
 {
+
     // Initialize state vector; estimated initial values
     x << 0, 0, 0;    
     // Initialize covariance matrices
@@ -25,17 +26,23 @@ KalmanFilter::KalmanFilter(float processNoise[], float measurementNoise[], TimeT
     K = Eigen::Matrix3f::Zero();
     I = Eigen::Matrix3f::Identity();
     
+
+    processNoise = processNoise;
+    measurementNoise = measurementNoise;
+
 }
 
 void KalmanFilter::update(float measuredAcceleration, float measuredPosition)
 {
+
     dt = timeTracker->getTimeStep() / 1000.0f; // Convert milliseconds to seconds
 
     // State transition matrix (assuming constant acceleration model)
     F << 1, 0, 0, // State transition for acceleration
          dt, 1, 0, // State transition for velocity
          0.5 * dt * dt, dt, 1; // State transition for position
-    // Predict the next state...
+
+  // Predict the next state...
     xp = F * x; // no control matrix... yet
 
     P = F * P * F.transpose() + Q; // Update estimate error covariance
@@ -69,4 +76,8 @@ float KalmanFilter::getVelocity()
 float KalmanFilter::getPosition()
 {
     return x(2); // Return estimated position
+}
+std::array<float, 3> KalmanFilter::getState()
+{
+    return {x(0), x(1), x(2)};
 }
