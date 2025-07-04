@@ -14,11 +14,7 @@ void Task::setActive(bool newState) {active = newState;}
 Scheduler::Scheduler(std::vector<Task*> tasks, TimeTracker * timeTracker)
     : tasks(tasks), timeTracker(timeTracker)
     {
-        for(int i = 0; i < tasks.size(); i++)
-        {
-            scheduleIntervals.push_back(tasks[i]->getInterval());
-            activeTasks.push_back(tasks[i]->isActive());
-        }
+        recalculateTaskInfo();
     }
 
 void Scheduler::addTask(Task * task)
@@ -42,4 +38,34 @@ Task* Scheduler::setTask(Task * newTask, int index)
     tasks[index] = newTask;
     recalculateTaskInfo();
     return oldTask;
+}
+
+void Scheduler::swap(int index1, int index2)
+{
+    Task* tmp = tasks[index1];
+    tasks[index1] = tasks[index2];
+    tasks[index2] = tmp;
+}
+
+bool Scheduler::validateTaskInfo()
+{
+    if(scheduleIntervals.size() != tasks.size())
+        return false;
+
+    for(int i = 0; i < tasks.size(); i++)
+    {
+        if(scheduleIntervals[i] != tasks[i]->getInterval())
+            return false;
+    }
+    return true;
+}
+
+void Scheduler::recalculateTaskInfo()
+{
+    tasks.clear();
+    for(int i = 0; i < tasks.size(); i++)
+    {
+        scheduleIntervals.push_back(tasks[i]->getInterval());
+        activeTasks.push_back(tasks[i]->isActive());
+    }
 }
