@@ -21,3 +21,25 @@ Scheduler::Scheduler(std::vector<Task*> tasks, TimeTracker * timeTracker)
         }
     }
 
+void Scheduler::addTask(Task * task)
+{
+    tasks.push_back(task);
+}
+
+void Scheduler::addTask(Task * task, int index)
+{
+    tasks.insert(tasks.begin() + index, task);
+}
+
+void Scheduler::dropTask(int index)
+{
+    tasks.erase(tasks.begin() + index);
+}
+
+Task* Scheduler::setTask(Task * newTask, int index)
+{
+    Task* oldTask = tasks[index];
+    tasks[index] = newTask;
+    recalculateTaskInfo();
+    return oldTask;
+}

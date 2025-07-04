@@ -34,8 +34,8 @@ class Scheduler
         void addTask(Task * task); // Add a new task to the end of the list (lowest priority)
         void addTask(Task * task, int index); // Add a task to any index in the list (choose priority)
         void dropTask(int taskIndex);
-        Task * setTask(int taskIndex, Task * newTask); // returns the old task
-        void swapTaskOrder(int index1, int index2); // Swaps the priorities of tasks.
+        Task * setTask(Task * newTask, int index); // returns the old task
+        void swap(int index1, int index2); // Swaps the priorities of tasks.
 
         // These are used internally to make sure that scheduleIntervals and activeTasks are up to date.
         bool validateTaskInfo(); 
