@@ -17,6 +17,7 @@ class FlightComputer
         // [1] represents barometric altimeter noise
         // The kalman filter is the only subsystem that cannot be hardcoded into this library, as variances will vary.
         FlightComputer(float processNoise [2], float measurementNoise [2], float seaLevelPressure, float maxProcessNoise, float maxMeasurementNoise);
+
         void update();
         
     private:
@@ -42,6 +43,8 @@ class FlightComputer
         float xyVels[2];
 
         float mass;
+  
+        float seaLevelPressure;
 };
 
 #endif
