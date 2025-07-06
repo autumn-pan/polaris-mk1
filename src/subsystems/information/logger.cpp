@@ -3,7 +3,7 @@
 #include <SD.h>
 #include "../control/sensors/sensors.h"
 
-Logger::Logger(String notes) // notes are arbitrary. remove.
+Logger::Logger(TimeTracker * timeTracker) 
 {
     //Begin SD card
     if (!SD.begin(chipSelect))
@@ -61,7 +61,7 @@ Logger::Logger(String notes) // notes are arbitrary. remove.
 
 
     // Write the header to the log file
-    dataFile.println("foo, bar, baz"); //replace these with meaningful sensor info
+    dataFile.println("time, foo, bar, baz"); //replace these with meaningful sensor info
 }
 
 void Logger::log(String data)
@@ -86,6 +86,8 @@ void Logger::logSensorData()
     // Log sensor data to the SD card
     if (dataFile)
     { //Change these into meaningful information when other systems are implemented
+        dataFile.println("");
+        dataFile.print(timeTracker->getTime() + ", ");
         dataFile.print("foo, ");
         dataFile.print("bar, ");
         dataFile.print("baz");
@@ -100,14 +102,17 @@ void Logger::logSensorData()
 void Logger::kill()
 {
     // Close the log file
-    if (dataFile)
+    if (dataFile && eventFile)
     {
         dataFile.close();
         Serial.println("Log file closed successfully.");
+
+        eventFile.close();
+        Serial.println("Event file closed successfully.");
     }
     else
     {
-        Serial.println("Data file not open");
+        Serial.println("Data or Event file not open");
         return;
     }
 }
