@@ -2,6 +2,7 @@
 #include <SPI.h>
 #include <SD.h>
 #include "../control/sensors/sensors.h"
+#include <string>
 
 Logger::Logger(TimeTracker * timeTracker) 
 {
@@ -80,17 +81,19 @@ void Logger::log(String data)
     // Print data to the serial monitor
     Serial.println(data);
 }
-
-void Logger::logSensorData()
+// The data array is full of sensor information as follows:
+// [altitude, velocity, acceleration, roll, pitch, yaw]
+void Logger::logSensorData(float data[7])
 {
     // Log sensor data to the SD card
     if (dataFile)
     { //Change these into meaningful information when other systems are implemented
         dataFile.println("");
         dataFile.print(timeTracker->getTime() + ", ");
-        dataFile.print("foo, ");
-        dataFile.print("bar, ");
-        dataFile.print("baz");
+        for(int i = 0; i < 7; i++)
+        {
+            dataFile.print(String(data[i]) + ", ");
+        }
     }
     else
     {
