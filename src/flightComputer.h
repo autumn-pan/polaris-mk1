@@ -2,11 +2,11 @@
 #define FLIGHT_COMPUTER_H
 
 #include "subsystems/control/sensors/sensors.h"
-#include "subsystems/control/timeTracker.h"
+#include "subsystems/control/timing/timeTracker.h"
 #include "subsystems/io/pyro.h"
 #include "subsystems/information/logger.h"
 #include "subsystems/control/filter.h"
-
+#include "subsystems/control/stateDetection/stateDetector.h"
 
 class FlightComputer
 {
@@ -17,7 +17,6 @@ class FlightComputer
         // [1] represents barometric altimeter noise
         // The kalman filter is the only subsystem that cannot be hardcoded into this library, as variances will vary.
         FlightComputer(float processNoise [2], float measurementNoise [2], float seaLevelPressure, float maxProcessNoise, float maxMeasurementNoise);
-
         void update();
         
     private:
@@ -27,7 +26,7 @@ class FlightComputer
         PyroChannel * pyro1; // Pyro channels to activate pyrotechnic devices
         PyroChannel * pyro2;
         KalmanFilter * filter;
-
+        StateDetector * stateDetector;
         // These are reasonable estimates for the maximum noise values from the IMUs.
         // This is useful for noise-proofing important systems such as apogee and launch detection.
         float maxProcessNoise;
@@ -43,8 +42,6 @@ class FlightComputer
         float xyVels[2];
 
         float mass;
-  
-        float seaLevelPressure;
 };
 
 #endif
