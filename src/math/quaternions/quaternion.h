@@ -9,6 +9,9 @@ class Quaternion
         Quaternion* scale(float scalar);
         Quaternion* add(Quaternion* quat);
 
+        Quaternion* exp();
+        Quaternion* normalize();
+        float magnitude();
 
     private:
         float q0, q1, q2, q3;

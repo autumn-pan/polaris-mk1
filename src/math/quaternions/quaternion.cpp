@@ -1,4 +1,5 @@
 #include "quaternion.h"
+#include <cmath>
 
 Quaternion::Quaternion(float q0, float q1, float q2, float q3)
     : q0(q0), q1(q1), q2(q2), q3(q3) {}
@@ -33,3 +34,47 @@ Quaternion * Quaternion::add(Quaternion * q)
         q3 + q->q3
     );
 }
+
+float Quaternion::magnitude()
+{
+    return std::sqrt(std::pow(q0,2) + std::pow(q1, 2) + std::pow(q2, 2) + std::pow(q3, 2));
+}
+
+Quaternion* Quaternion::normalize()
+{
+    float mag = this->magnitude();
+
+    return new Quaternion
+    (
+        q0/mag,
+        q1/mag,
+        q2/mag,
+        q3/mag
+    );
+}
+
+// This function represents a rotation about nq essentially
+Quaternion* Quaternion::exp()
+{
+    // Magnitude of the quaternion
+    float mag = std::sqrt(q1*q1 + q2*q2 + q3*q3);
+    
+    // This is the normalized quaternion
+    if(mag == 0.0f)
+        return new Quaternion(1, 0, 0, 0);
+
+    Quaternion* nq = this->normalize();
+
+    float scalar = std::cos(mag);
+    float vectorScale = std::sin(mag)/mag;
+
+    return new Quaternion
+    (
+        scalar,
+        q1*vectorScale,
+        q2*vectorScale,
+        q3*vectorScale
+    );
+}
+
+
