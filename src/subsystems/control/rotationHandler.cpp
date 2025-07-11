@@ -6,11 +6,13 @@ RotationHandler::RotationHandler(TimeTracker* timeTracker)
 void RotationHandler::update()
 {
     Quaternion* angVel = cartesianToQuaternion(sensors->getGyroX(), sensors->getGyroY(), sensors->getGyroZ());
-    
+
     orientation = orientation->mult
     (
         (angVel->scale(0.5*timeTracker->getTimeStep()))->exp()
     );
+
+    delete(angVel);
 }
 
 Quaternion* cartesianToQuaternion(float x, float y, float z)
