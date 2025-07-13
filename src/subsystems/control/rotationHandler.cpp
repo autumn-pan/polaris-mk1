@@ -25,3 +25,8 @@ Quaternion* cartesianToQuaternion(float x, float y, float z)
         z
     );
 }
+
+Quaternion* RotationHandler::getOrientation()
+{
+    return orientation;
+}

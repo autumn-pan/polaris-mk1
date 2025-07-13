@@ -10,6 +10,7 @@ class RotationHandler
     public:
         RotationHandler(TimeTracker* timeTracker);
         void update();
+        Quaternion* getOrientation();
 
     private:
         Quaternion* orientation;

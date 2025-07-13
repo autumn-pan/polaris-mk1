@@ -7,6 +7,7 @@
 #include "subsystems/information/logger.h"
 #include "subsystems/control/filter.h"
 #include "subsystems/control/stateDetection/stateDetector.h"
+#include "subsystems/control/rotationHandler.h"
 
 class FlightComputer
 {
@@ -27,6 +28,8 @@ class FlightComputer
         PyroChannel * pyro2;
         KalmanFilter * filter;
         StateDetector * stateDetector;
+        RotationHandler * rotationHandler;
+
         // These are reasonable estimates for the maximum noise values from the IMUs.
         // This is useful for noise-proofing important systems such as apogee and launch detection.
         float maxProcessNoise;
@@ -38,6 +41,7 @@ class FlightComputer
         float seaLevelPressure;
 
         float stateVector[3]; 
+        Quaternion* orientation;
 
         float xyVels[2];
 
