@@ -46,3 +46,7 @@ float Vector3::norm()
 {
     return std::sqrt(std::pow(x, 2) + std::pow(y, 2) + std::pow(z, 2));
 }
+
+float Vector3::getX() {return x;}
+float Vector3::getY() {return y;}
+float Vector3::getZ() {return z;}

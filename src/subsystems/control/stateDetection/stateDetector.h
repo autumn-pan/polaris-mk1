@@ -1,5 +1,6 @@
 #ifndef STATE_DETECTOR
 #define STATE_DETECTOR
+
 const int VELOCITY_ARRAY_SIZE = 5;
 
 enum State {
