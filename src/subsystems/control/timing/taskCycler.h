@@ -1,6 +1,7 @@
 #ifndef TASK_CYCLER_H
 #define TASK_CYCLER_H
 #include <vector>
+
 typedef void * (Task)();
 
 class TaskCycler
@@ -18,6 +19,8 @@ class TaskCycler
 
     private:
         std::vector<Task*> tasks;
-        
+        int numTasks;
+        int taskIndex;
+        Task* currentTask;
 };
 #endif

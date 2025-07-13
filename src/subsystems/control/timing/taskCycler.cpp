@@ -1,6 +1,8 @@
 #include "taskCycler.h"
 
-
+TaskCycler::TaskCycler() {}
+TaskCycler::TaskCycler(std::vector<Task*> tasks)
+    : tasks(tasks) {}
 
 void TaskCycler::addTask(Task * task)
 {
@@ -35,4 +37,17 @@ void TaskCycler::swap(int index1, int index2)
     Task* tmp = tasks[index1];
     tasks[index1] = tasks[index2];
     tasks[index2] = tmp;
+}
+
+
+void TaskCycler::update()
+{
+    numTasks = tasks.size();
+
+    taskIndex = (taskIndex + 1) % numTasks;
+    currentTask = tasks[taskIndex];
+    
+    if(currentTask)
+        currentTask();
+    
 }
