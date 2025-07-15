@@ -2,7 +2,7 @@
 #define FILTER_H
 
 #include <eigen.h>
-#include "./timeTracker.h"
+#include "./timing/timeTracker.h"
 class KalmanFilter
 {
     public:
@@ -12,7 +12,7 @@ class KalmanFilter
         // [1] represents barometric altimeter noise
         KalmanFilter(float processNoise [2], float measurementNoise [2], TimeTracker* timeTracker = nullptr);
 
-        void update(float measuredAcceleration, float measuredPosition); // Update the filter with new measurements; run every cycle
+        void update(float measuredAcceleration, float measuredPosition, Eigen::Vector3f control); // Update the filter with new measurements; run every cycle
 
         // Getters for the state variables
         float getAcceleration(); 
@@ -31,6 +31,7 @@ class KalmanFilter
         Eigen::Matrix3f K; // Kalman gain
         Eigen::Matrix3f I; // Identity matrix
         Eigen::Matrix3f F; // State transition matrix
+        Eigen::Matrix3f B; // Control matrix
 
         float dt; // Time step
         // Note: while the time variable usually stores milliseconds, seconds are used in the kalman filter
