@@ -5,6 +5,7 @@
 #include "subsystems/information/logger.h"
 #include "subsystems/io/pyro.h"
 #include <Arduino.h>
+#include <eigen.h>
 
 FlightComputer::FlightComputer(float processNoise[2], float measurementNoise[2], float seaLevelPressure, float maxProcessNoise, float maxMeasurementNoise)
 {
@@ -37,7 +38,7 @@ FlightComputer::FlightComputer(float processNoise[2], float measurementNoise[2],
 
 
 
-void FlightComputer::update()
+void FlightComputer::update(Eigen::Vector3f  control)
 {
     // keep track of time
     timeTracker->update();
@@ -54,5 +55,9 @@ void FlightComputer::update()
 
     // Update state information
     sensors->updateSensorData();
-    filter->update(sensors->getAccelY(), sensors->getAltitude(seaLevelPressure));
+    filter->update(sensors->getAccelY(), sensors->getAltitude(seaLevelPressure), control);
+
+    //update orientation
+    rotationHandler->update();
+    orientation = rotationHandler->getOrientation();
 }

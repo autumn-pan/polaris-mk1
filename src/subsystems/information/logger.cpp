@@ -83,14 +83,14 @@ void Logger::log(String data)
 }
 // The data array is full of sensor information as follows:
 // [altitude, velocity, acceleration, roll, pitch, yaw]
-void Logger::logSensorData(float data[7])
+void Logger::logSensorData(float data[6])
 {
     // Log sensor data to the SD card
     if (dataFile)
     { //Change these into meaningful information when other systems are implemented
         dataFile.println("");
         dataFile.print(timeTracker->getTime() + ", ");
-        for(int i = 0; i < 7; i++)
+        for(int i = 0; i < 6; i++)
         {
             dataFile.print(String(data[i]) + ", ");
         }
@@ -99,6 +99,41 @@ void Logger::logSensorData(float data[7])
     {
         Serial.println("Error writing to the log file");
         return;
+    }
+}
+
+void Logger::beginLine()
+{
+    // Log sensor data to the SD card
+    if (dataFile)
+    { //Change these into meaningful information when other systems are implemented
+        dataFile.println("");
+        dataFile.print(timeTracker->getTime() + ", ");
+    }
+    else
+    {
+        Serial.println("Error writing to the log file");
+        return;
+    }
+}
+
+// This is the main function and can log either the state vector or orientation.
+void Logger::logDataTriple(float data[3])
+{
+    {
+        // Log sensor data to the SD card
+        if (dataFile)
+        {
+            for(int i = 0; i < 3; i++)
+            {
+                dataFile.print(String(data[i]) + ", ");
+            }
+        }
+        else
+        {
+            Serial.println("Error writing to the log file");
+            return;
+        }
     }
 }
 

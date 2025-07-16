@@ -36,6 +36,7 @@ SensorStack::SensorStack(Logger * logger) : accel(Wire, 0x18), gyro(Wire, 0x68)
 float SensorStack::getAccelX() { return accel.getAccelX_mss(); }
 float SensorStack::getAccelY() { return accel.getAccelY_mss(); }
 float SensorStack::getAccelZ() { return accel.getAccelZ_mss(); }
+
 float SensorStack::getGyroX() { return gyro.getGyroX_rads(); }
 float SensorStack::getGyroY() { return gyro.getGyroY_rads(); }
 float SensorStack::getGyroZ() { return gyro.getGyroZ_rads(); }
@@ -62,3 +63,4 @@ void SensorStack::updateSensorData()
     pressure = getPressure();
     altitude = getAltitude(SEA_LEVEL_PRESSURE);
 }
+

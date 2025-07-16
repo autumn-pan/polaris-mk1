@@ -1,6 +1,6 @@
 #ifndef MOTOR_H
 #define MOTOR_H
-#include "../../timeTracker.h"
+#include "../../timing/timeTracker.h"
 // The Motor Class keeps track of motor information, like mass, burntime, etc.
 // Propellant mass linearly decreases when the motor is burning, but this can be improved to follow a closer polynomial approximation instead.
 class Motor
