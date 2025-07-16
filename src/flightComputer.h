@@ -8,6 +8,7 @@
 #include "subsystems/control/filter.h"
 #include "subsystems/control/stateDetection/stateDetector.h"
 #include "subsystems/control/rotationHandler.h"
+#include <eigen.h>
 
 class FlightComputer
 {
@@ -18,7 +19,7 @@ class FlightComputer
         // [1] represents barometric altimeter noise
         // The kalman filter is the only subsystem that cannot be hardcoded into this library, as variances will vary.
         FlightComputer(float processNoise [2], float measurementNoise [2], float seaLevelPressure, float maxProcessNoise, float maxMeasurementNoise);
-        void update();
+        void update(Eigen::Vector3f  control);
         
     private:
         Logger * logger;

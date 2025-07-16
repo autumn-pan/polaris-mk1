@@ -59,12 +59,14 @@ Quaternion* Quaternion::exp()
     // Magnitude of the quaternion
     float mag = std::sqrt(q1*q1 + q2*q2 + q3*q3);
     
-    // This is the normalized quaternion
+    // If the vector part has length 0, return to prevent divide by zzero error
     if(mag == 0.0f)
         return new Quaternion(1, 0, 0, 0);
 
+    // This is the normalized quaternion
     Quaternion* nq = this->normalize();
 
+    
     float scalar = std::cos(mag);
     float vectorScale = std::sin(mag)/mag;
 
